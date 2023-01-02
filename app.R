@@ -63,14 +63,17 @@ server <- function(input, output) {
   
   # Generate a plot of the requested variable against mpg ----
   # and only exclude outliers if requested
-  output$mpgPlot <- renderPlot({
-    
-   geom_histogram(mpgData[ , input$variable],xlab=input$variable)+ facet_grid(facets=. ~ cyl) 
   
-    })
+  output$mpgPlot <- renderPlot({
+    x    <- mtcars$mpg
+    ggplot(mtcars, aes(x=x))+
+      geom_histogram(binwidth=5,color="black", fill="lightblue" ) + facet_grid(facets=. ~ cyl) 
+    
+  })
   
 }
 
 # Create Shiny app ----
 shinyApp(ui, server)
+
 
